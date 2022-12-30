@@ -1,0 +1,31 @@
+{
+  "name": "subathon-timer",
+  "version": "1.0.0",
+  "description": "Programa para subathons na Twitch",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Davi-Coelho/subathon-timer.git"
+  },
+  "keywords": [
+    "Twitch",
+    "Subathon",
+    "Timer"
+  ],
+  "author": "Davi Coelho",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Davi-Coelho/subathon-timer/issues"
+  },
+  "homepage": "https://github.com/Davi-Coelho/subathon-timer#readme",
+  "devDependencies": {
+    "electron": "^22.0.0",
+    "electron-reloader": "^1.2.3"
+  },
+  "dependencies": {
+    "electron-store": "^8.1.0"
+  }
+}

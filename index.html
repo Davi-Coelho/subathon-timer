@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+<!--    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
+    <title>Subathon Timer</title>
+    <link rel="stylesheet" href="public/css/styles.css">
+    <link rel="stylesheet" href="public/css/slider.css">
+    <link rel="stylesheet" href="public/css/all.min.css">
+</head>
+<body>
+    <div id="app">
+        <div id="bots">
+            <div id="streamlabs">
+                <input type="checkbox" name="socket-check" id="socket-check" />
+                <label for="socket">Streamlabs Socket: </label>
+                <input type="password" name="socket" id="socket">
+            </div>
+            <div id="streamelements">
+                <input type="checkbox" name="jwt-check" id="jwt-check" />
+                <label for="jwt">StreamElements JWT: </label>
+                <input type="password" name="jwt" id="jwt">
+            </div>
+        </div>
+        <div id="timer">
+            <div class="time-section">
+                <div class="upper-buttons">
+                    <input type="button" id="add-decimal-hours" onclick="changeTimer(this)">
+                    <input type="button" id="add-unit-hours" onclick="changeTimer(this)">
+                </div>
+                <span id="hours">00</span>
+                <div class="lower-buttons">
+                    <input type="button" id="sub-decimal-hours" onclick="changeTimer(this)">
+                    <input type="button" id="sub-unit-hours" onclick="changeTimer(this)">
+                </div>
+            </div>
+            <span>:</span>
+            <div class="time-section">
+                <div class="upper-buttons">
+                    <input type="button" id="add-decimal-minutes" onclick="changeTimer(this)">
+                    <input type="button" id="add-unit-minutes" onclick="changeTimer(this)">
+                </div>
+                <span id="mins">00</span>
+                <div class="lower-buttons">
+                    <input type="button" id="sub-decimal-minutes" onclick="changeTimer(this)">
+                    <input type="button" id="sub-unit-minutes" onclick="changeTimer(this)">
+                </div>
+            </div>
+            <span>:</span>
+            <div class="time-section">
+                <div class="upper-buttons">
+                    <input type="button" id="add-decimal-seconds" onclick="changeTimer(this)">
+                    <input type="button" id="add-unit-seconds" onclick="changeTimer(this)">
+                </div>
+                <span id="secs">00</span>
+                <div class="lower-buttons">
+                    <input type="button" id="sub-decimal-seconds" onclick="changeTimer(this)">
+                    <input type="button" id="sub-unit-seconds" onclick="changeTimer(this)">
+                </div>
+            </div>
+        </div>
+        <div id="config">
+            <button id="edit-button"><i class="fa-solid fa-pen-to-square"></i></button>
+            <div id="enable-button" class="counter-value">
+                <label for="enable-counter" class="label" data-i18n="enable-counter"></label>
+                <label class="switch">
+                    <input type="checkbox" name="enable-counter" id="enable-counter">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div id="subscription" class="counter-value">
+                <label for="subscription-counter" class="label" data-i18n="subscription"></label>
+                <input type="number" name="subscription-counter" id="subscription-counter" value="0" min="0">
+                <select name="subscription-select" id="subscription-select">
+                    <option value="1" data-i18n="first-option"></option>
+                    <option value="2" data-i18n="second-option" selected></option>
+                </select>
+            </div>
+            <div id="bits" class="counter-value">
+                <label for="bits-value" class="label" data-i18n="bits"></label>
+                <input type="number" name="bits-value" id="bits-value" value="1" min="1">
+                <label for="bits-counter" data-i18n="increase"></label>
+                <input type="number" name="bits-counter" id="bits-counter" value="0" min="0">
+                <select name="bits-select" id="bits-select">
+                    <option value="1" data-i18n="first-option"></option>
+                    <option value="2" data-i18n="second-option" selected></option>
+                </select>
+            </div>
+            <div id="donate" class="counter-value">
+                <label for="donate-value" class="label" data-i18n="donate"></label>
+                <select name="donate-currency" id="donate-currency">
+                    <option value="USD" selected>$</option>
+                    <option value="BRL">R$</option>
+                    <option value="EUR">€</option>
+                    <option value="JPY">¥</option>
+                </select>
+                <input type="number" name="donate-value" id="donate-value" value="1" min="1">
+                <label for="donate-counter" data-i18n="increase"></label>
+                <input type="number" name="donate-counter" id="donate-counter" value="0" min="0">
+                <select name="donate-select" id="donate-select">
+                    <option value="1" data-i18n="first-option"></option>
+                    <option value="2" data-i18n="second-option" selected></option>
+                </select>
+            </div>
+            <span class="br"></span>
+            <div id="limit-time" class="counter-value">
+                <label for="enable-limit" class="label" data-i18n="limit-date"></label>
+                <div class="limit-config">
+                    <div>
+                        <div id="max-time-div" hidden>
+                            <input type="number" name="max-time" id="max-time" value="0" min="0">
+                            <label for="max-time" data-i18n="hours">horas</label>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" name="enable-limit" id="enable-limit">
+                            <label for="enable-limit" class="slider round"></label>
+                        </label>
+                    </div>
+                    <div>
+                        <input type="time" name="time-limit" id="time-limit" value="00:00" hidden>
+                        <input type="date" name="date-limit" id="date-limit" value="1970-01-01" hidden>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="controls">
+            <input id="pause-button" type="button" data-i18n="pause" hidden>
+            <input id="start-button" type="button" data-i18n="start">
+        </div>
+        <div id="locales">
+            <img id="portuguese-button" src="public/icons/br.svg"
+                 data-i18n="portuguese" alt="Portuguese"
+                 height="20" width="20" onclick="saveLanguage('pt')">
+            <img id="english-button" src="public/icons/us.svg"
+                 data-i18n="english" alt="English"
+                 height="20" width="20" onclick="saveLanguage('en')">
+            <img id="spanish-button" src="public/icons/es.svg"
+                 data-i18n="spanish" alt="Spanish"
+                 height="20" width="20" onclick="saveLanguage('es')">
+            <img id="japanese-button" src="public/icons/jp.svg"
+                 data-i18n="japanese" alt="Japanese"
+                 height="20" width="20" onclick="saveLanguage('jp')">
+        </div>
+        <span id="info"></span>
+    </div>
+    <script src="public/js/socket.io.js"></script>
+    <script src="public/js/translator.js"></script>
+    <script src="public/js/streamlabs.js"></script>
+    <script src="public/js/streamelements.js"></script>
+    <script src="public/js/main.js"></script>
+</body>
+</html>
